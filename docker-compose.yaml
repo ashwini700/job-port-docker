@@ -1,0 +1,26 @@
+services:
+  job-port-docker:
+    container_name: job-port-docker
+    image: "job-port-docker"
+    ports:
+      - "8080:8080"
+    build: .
+    env_file:
+      - .env
+      # - .auth.env
+      - .db.env
+      - .keys.env
+    depends_on:
+      - postgres
+    restart: always
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    # env_file:
+    #   - .db.env
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Ashwini
+      - POSTGRES_DB=postgres
